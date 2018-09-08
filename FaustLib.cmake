@@ -9,7 +9,7 @@ if(DEFINED LLVM_DIR)
 endif()
 
 ## Hardcoded targets for faust
-set(MSVC_STATIC         ON CACHE STRING   "Use static runtimes with MSVC" FORCE)
+set(MSVC_STATIC         ON  CACHE STRING  "Use static runtimes with MSVC" FORCE)
 set(INCLUDE_STATIC      ON  CACHE STRING  "Include static library"        FORCE)
 set(INCLUDE_EXECUTABLE  OFF CACHE STRING  "Include runtime executable"    FORCE)
 set(INCLUDE_DYNAMIC     OFF CACHE STRING  "Include dynamic library"       FORCE)
