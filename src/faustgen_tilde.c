@@ -133,6 +133,10 @@ static void faustgen_tilde_compile_options(t_faustgen_tilde *x, t_symbol* s, int
     faustgen_tilde_compile(x);
 }
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 static void faustgen_tilde_open_texteditor(t_faustgen_tilde *x)
 {
     if(x->f_dsp_instance)
