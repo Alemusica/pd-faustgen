@@ -21,7 +21,12 @@ matrix:
     - cmake --build . --config Release --target faustgen_tilde_project
   - os: linux
     compiler: gcc
+    addons:
+      apt:
+        sources: ubuntu-toolchain-r-test
+        packages: g++-4.9
     env: release_arch=Linux-amd64-32
+    before_install: "CC=gcc-4.9 && CXX=g++-4.9"
     install:
     - git submodule update --init --recursive
     - sudo apt-get install -y pkg-config libedit-dev
