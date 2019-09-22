@@ -145,7 +145,7 @@ static void windows_system(const char *cmd)
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
     
-    if (CreateProcessW(command, arg, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
+    if (CreateProcessW(cmd, NULL, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
     {
         WaitForSingleObject(pi.hProcess, INFINITE);
         CloseHandle(pi.hProcess);
