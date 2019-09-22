@@ -135,8 +135,7 @@ static void faustgen_tilde_compile_options(t_faustgen_tilde *x, t_symbol* s, int
 
 #ifdef _WIN32
 #include <windows.h>
-#include "AtlBase.h"
-#include "AtlConv.h"
+
 static int windows_system(const char *cmd)
 {
     PROCESS_INFORMATION p_info;
