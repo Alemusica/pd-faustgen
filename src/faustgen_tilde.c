@@ -136,25 +136,21 @@ static void faustgen_tilde_compile_options(t_faustgen_tilde *x, t_symbol* s, int
 #ifdef _WIN32
 #include <windows.h>
 
-static int windows_system(const char *cmd)
+static void windows_system(const char *cmd)
 {
-    PROCESS_INFORMATION p_info;
-    STARTUPINFO s_info;
-    DWORD ReturnValue;
-    CA2T programpath(cmd);
+    STARTUPINFOW si;
+    PROCESS_INFORMATION pi;
     
-    memset(&s_info, 0, sizeof(s_info));
-    memset(&p_info, 0, sizeof(p_info));
-    s_info.cb = sizeof(s_info);
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
     
-    if (CreateProcess(programpath, NULL, NULL, NULL, 0, 0, NULL, NULL, &s_info, &p_info))
+    if (CreateProcessW(command, arg, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
     {
-        WaitForSingleObject(p_info.hProcess, INFINITE);
-        GetExitCodeProcess(p_info.hProcess, &ReturnValue);
-        CloseHandle(p_info.hProcess);
-        CloseHandle(p_info.hThread);
+        WaitForSingleObject(pi.hProcess, INFINITE);
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
     }
-    return ReturnValue;
 }
 #endif
 
@@ -167,11 +163,7 @@ static void faustgen_tilde_open_texteditor(t_faustgen_tilde *x)
 		char temp[MAXPDSTRING];
         sys_bashfilename(faust_opt_manager_get_full_path(x->f_opt_manager, x->f_dsp_name->s_name), temp);
 		sprintf(message, "\"%s\"", temp);
-        if(windows_system(message))
-        {
-            
-        }
-        return;
+        windows_system(message);
 #elif __APPLE__
         sprintf(message, "open -t %s", faust_opt_manager_get_full_path(x->f_opt_manager, x->f_dsp_name->s_name));
         if(system(message))
